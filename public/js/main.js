@@ -8,14 +8,14 @@ async function apiRequest() {
     const data = await res.json()
 
     console.log(data)
-    document.getElementById('brand').innerText = data.brand
-    document.getElementById('name').innerText = data.sunscreenName
-    document.getElementById('spf').innerText = data.spf
-    document.getElementById('form').innerText = data.form
-    document.getElementById('type').innerText = data.spf
-    document.getElementById('finish').innerText = data.finish
+    document.getElementById('brand').innerText = `Brand: ${data.brand}`
+    document.getElementById('name').innerText = `Name: ${data.sunscreenName}`
+    document.getElementById('spf').innerText = `SPF: ${data.spf}`
+    document.getElementById('form').innerText = `Form: ${data.form}`
+    document.getElementById('type').innerText = `Type: ${data.spf}`
+    document.getElementById('finish').innerText = `Finish: ${data.finish}`
     let price = Number(data.priceUSD) / Number(data.ounces)
-    document.getElementById('price').innerText = `$${price.toFixed(2)} / ounce`
+    document.getElementById('price').innerText = `Price: $${price.toFixed(2)} / ounce`
     document.querySelector('img').src = data.imageURL
     for (item of data.ingredients) {
       document.getElementById('ingredients').innerHTML += `<li>${item}</li>`
