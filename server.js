@@ -8,6 +8,7 @@ const connectionString = `mongodb+srv://shannonnlin:${process.env.MONGODB_PASSWO
 
 app.use(cors())
 app.use(express.json())
+app.use(express.static('public'))
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html')
@@ -22,7 +23,7 @@ MongoClient.connect(connectionString, {useUnifiedTopology: true, useNewUrlParser
     app.get('/api/:query', (req, res) => {
       const query = req.params.query.toLowerCase()
       infoCollection.find({name: query}).toArray()
-      .then(result => {
+      .then(results => {
         console.log(results)
         res.json(results[0])
       })
