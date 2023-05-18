@@ -4,6 +4,7 @@ async function apiRequest() {
   const query = document.querySelector('input').value
   try {
     const res = await fetch(`https://sunscreen-database.onrender.com/api/${query}`)
+    // const res = await fetch(`http://localhost:9000/api/${query}`)
     const data = await res.json()
 
     console.log(data)

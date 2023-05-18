@@ -7,8 +7,8 @@ const MongoClient = require('mongodb').MongoClient
 const connectionString = `mongodb+srv://shannonnlin:${process.env.MONGODB_PASSWORD}@cluster1.yuwebwh.mongodb.net/?retryWrites=true&w=majority`
 
 app.use(cors())
-app.use(express.json())
 app.use(express.static('public'))
+app.use(express.json())
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html')
@@ -29,8 +29,8 @@ MongoClient.connect(connectionString, {useUnifiedTopology: true, useNewUrlParser
       })
       .catch(error => console.error(error))
     })
-})
-.catch (error => console.error(error))
+  })
+  .catch (error => console.error(error))
 
 app.listen(process.env.PORT || PORT, () => {
   console.log(`The server is running on port ${PORT}.`)
