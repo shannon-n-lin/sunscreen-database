@@ -5,6 +5,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/reset.css"> -->
     <script src="//code.jquery.com/jquery-1.12.4.js"></script>
     <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <title>Sunscreen Database</title>
@@ -12,17 +15,18 @@
 <body>
   <h1>Sunscreen Database</h1>
   <section>
-    <input type="text">
+    <input id="name">
     <button>Search</button>
   </section>
   <section>
     <p id="brand"></p>
-    <p id="name"></p>
+    <p id="sunscreenName"></p>
     <p id="spf"></p>
     <p id="form"></p>
     <p id="type"></p>
     <p id="finish"></p>
     <p id="price"></p>
+    <p id='ingredientsLabel'></p>
     <ul id="ingredients"></ul>
   </section>
   <section>
