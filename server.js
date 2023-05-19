@@ -26,18 +26,35 @@ MongoClient.connect(process.env.DB_CONNECTION_STRING, {useUnifiedTopology: true,
   .catch(error => console.error(error))
 
 // jquery autocomplete search of database
+// uses MongoDB search index definition (see below)
 app.get('/search', async (req, res) => {
   try {
     let result = await collection.aggregate([
       {
-        '$search': {
-          'autocomplete': {
-            'query': `${req.query.query}`,
-            'path': 'name',
-            'fuzzy': {
-              'maxEdits': 2,
-              'prefixLength': 3,
-            }
+        $search: {
+          compound: {
+            should: [
+              {
+                autocomplete: {
+                  query: `${req.query.query}`,
+                  path: 'brand',
+                  fuzzy: {
+                    maxEdits: 2,
+                    prefixLength: 3,
+                  }
+                }
+              },
+              {
+                autocomplete: {
+                  query: `${req.query.query}`,
+                  path: 'sunscreenName',
+                  fuzzy: {
+                    maxEdits: 2,
+                    prefixLength: 3,
+                  }
+                }
+              }
+            ]
           }
         }
       }
@@ -63,7 +80,10 @@ app.get('/get/:id', async (req, res) => {
 // manual search
 app.get('/api/:query', (req, res) => {
   const query = req.params.query.toLowerCase()
-  collection.find({name: query}).toArray()
+  collection.find(
+    // uses MongoDB search index definition (see below)
+    {'$text': {'$search': query}}
+  ).toArray()
   .then(results => {
     console.log(results)
     res.json(results[0])
@@ -77,22 +97,27 @@ app.listen(process.env.PORT || PORT, () => {
 })
 
 
-/*
+/* --------------------------------------------------
 MongoDB search index definition:
 {
   "mappings": {
     "dynamic": false,
     "fields": {
-      "name": [
-        {
-          "foldDiacritics": false,
-          "maxGrams": 7,
-          "minGrams": 3,
-          "tokenization": "edgeGram",
-          "type": "autocomplete"
-        }
-      ]
+      "brand": {
+        "foldDiacritics": true,
+        "maxGrams": 7,
+        "minGrams": 3,
+        "tokenization": "edgeGram",
+        "type": "autocomplete"
+      },
+      "sunscreenName": {
+        "foldDiacritics": true,
+        "maxGrams": 7,
+        "minGrams": 3,
+        "tokenization": "edgeGram",
+        "type": "autocomplete"
+      }
     }
   }
 }
-*/
+-------------------------------------------------- */
