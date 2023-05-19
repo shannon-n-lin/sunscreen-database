@@ -1,5 +1,5 @@
-// let host = 'https://sunscreen-database.onrender.com'
-let host = 'http://localhost:9000'
+let host = 'https://sunscreen-database.onrender.com'
+// let host = 'http://localhost:9000'
 
 // jquery autocomplete search of database
 $(document).ready(function () {
