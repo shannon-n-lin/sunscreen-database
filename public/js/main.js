@@ -9,8 +9,8 @@ $(document).ready(function () {
         .then(results => results.json())
         .then(results => results.map(result => {
           return {
-            label: result.name,
-            value: result.name,
+            label: `${result.brand} - ${result.sunscreenName}`,
+            value: `${result.brand} - ${result.sunscreenName}`,
             id: result._id,
           }
         }))
@@ -23,7 +23,7 @@ $(document).ready(function () {
         .then(result => result.json())
         .then(result => {
           $('#brand').text(`Brand: ${result.brand}`)
-          $('#name').text(`Name: ${result.sunscreenName}`)
+          $('#sunscreenName').text(`Name: ${result.sunscreenName}`)
           $('#spf').text(`SPF: ${result.spf}`)
           $('#form').text(`Form: ${result.form}`)
           $('#type').text(`Type: ${result.type}`)
