@@ -1,16 +1,16 @@
-// let host = 'https://sunscreen-database.onrender.com'
-let host = 'http://localhost:9000'
+let host = 'https://sunscreen-database.onrender.com'
+// let host = 'http://localhost:9000'
 
 // jquery autocomplete search of database
 $(document).ready(function () {
-  $('#name').autocomplete({   
+  $('#search').autocomplete({   
     source: async function(req, res) {
       let data= await fetch(`${host}/search?query=${req.term}`)
         .then(results => results.json())
         .then(results => results.map(result => {
           return {
-            label: `${result.brand} - ${result.sunscreenName}`,
-            value: `${result.brand} - ${result.sunscreenName}`,
+            label: `${result.brand} - ${result.name}`,
+            value: `${result.brand} - ${result.name}`,
             id: result._id,
           }
         }))
@@ -23,7 +23,7 @@ $(document).ready(function () {
         .then(result => result.json())
         .then(result => {
           $('#brand').text(`Brand: ${result.brand}`)
-          $('#sunscreenName').text(`Name: ${result.sunscreenName}`)
+          $('#name').text(`Name: ${result.name}`)
           $('#spf').text(`SPF: ${result.spf}`)
           $('#form').text(`Form: ${result.form}`)
           $('#type').text(`Type: ${result.type}`)
@@ -59,7 +59,7 @@ async function apiRequest(search) {
 
     console.log(data)
     document.getElementById('brand').innerText = `Brand: ${data.brand}`
-    document.getElementById('name').innerText = `Name: ${data.sunscreenName}`
+    document.getElementById('name').innerText = `Name: ${data.name}`
     document.getElementById('spf').innerText = `SPF: ${data.spf}`
     document.getElementById('form').innerText = `Form: ${data.form}`
     document.getElementById('type').innerText = `Type: ${data.type}`
