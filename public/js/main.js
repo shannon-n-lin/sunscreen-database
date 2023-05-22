@@ -1,5 +1,5 @@
-let host = 'https://sunscreen-database.onrender.com'
-// let host = 'http://localhost:9000'
+// let host = 'https://sunscreen-database.onrender.com'
+let host = 'http://localhost:9000'
 
 // jquery autocomplete search of database
 $(document).ready(function () {
@@ -67,6 +67,7 @@ async function apiRequest(search) {
     let price = Number(data.priceUSD) / Number(data.ounces)
     document.getElementById('price').innerText = `Price: $${price.toFixed(2)} / ounce`
     document.querySelector('img').src = data.imageURL
+    document.getElementById('ingredientsLabel').innerText = 'Ingredients:'
     for (item of data.ingredients) {
       document.getElementById('ingredients').innerHTML += `<li>${item}</li>`
     }

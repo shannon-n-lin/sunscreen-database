@@ -1,18 +1,23 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const { MongoClient, ObjectId } = require('mongodb')
-let db, collection
-require('dotenv').config()
 const PORT = 9000
+const { MongoClient, ObjectId } = require('mongodb')
+require('dotenv').config()
+
+let dbConnectionStr = process.env.DB_CONNECTION_STRING,
+    db, 
+    collection
 
 // middleware
-app.use(cors())
+app.set('view engine', 'ejs')
+app.use(express.urlencoded({extended: true}))
 app.use(express.static('public'))
 app.use(express.json())
+app.use(cors())
 
 // MongoDB connection
-MongoClient.connect(process.env.DB_CONNECTION_STRING, {useUnifiedTopology: true, useNewUrlParser: true})
+MongoClient.connect(dbConnectionStr, {useUnifiedTopology: true, useNewUrlParser: true})
   .then(client => {
     console.log('Connected to database.')
     db = client.db('sunscreen-database')
@@ -20,14 +25,14 @@ MongoClient.connect(process.env.DB_CONNECTION_STRING, {useUnifiedTopology: true,
   })
   .catch(error => console.error(error))
 
-// root page
+// load ejs template with list of sunscreens on root page
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html')
-  // collection.find().sort({likes: -1}).toArray()
-  // .then(data => {
-  //   res.render('index.ejs', {info: data})
-  // })
-  // .catch(error => console.error(error))
+  collection.find().toArray()
+  .then(data => {
+    res.render('index.ejs', {info: data})
+    console.log('Rendered index.ejs template.')
+  })
+  .catch(error => console.error(error))
 })
 
 // jquery autocomplete search of database
@@ -82,7 +87,7 @@ app.get('/get/:id', async (req, res) => {
   }
 })
 
-// manual search
+// manual search of database
 app.get('/api/:search', (req, res) => {
   const search = req.params.search.toLowerCase()
   collection.find(
