@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <title>Sunscreen Database</title>
+</head>
+<body>
+  <header>
+    <h1>Sunscreen Database</h1>
+  </header>
+  <main>
+    <section class="search-ui">
+      <input id="search">
+      <button>Search</button>
+    </section>
+    <section class="searchResults">
+      <section>
+        <p id="brand"></p>
+        <p id="name"></p>
+        <p id="spf"></p>
+        <p id="form"></p>
+        <p id="type"></p>
+        <p id="finish"></p>
+        <p id="price"></p>
+        <p id='ingredientsLabel'></p>
+        <ul id="ingredients"></ul>
+      </section>
+      <section>
+        <img src="">
+      </section>
+    </section>
+    <section class="allSunscreens">
+      <h2>All Sunscreens</h2>
+      <ul class="sunscreenList">
+      <% for (let i = 0; i < info.length; i++) {%>
+        <li class="sunscreen">
+          <span><%= info[i].brand %></span>
+          <span><%= info[i].name %></span>
+          <span><%= info[i].spf %></span>
+          <span><%= info[i].form %></span>
+          <span><%= info[i].type %></span>
+          <span><%= info[i].finish %></span>
+        </li>
+      <% } %>
+      <ul>
+    </section>
+    <section class="addSunscreenForm">
+      <h2>Add a Sunscreen</h2>
+      <form action="/addSunscreen" method="POST">
+        <div class="formControl">
+          <label for="brand">Brand:</label>
+          <input type="text" name="brand" required>
+        </div>
+        <div class="formControl">
+          <label for="name">Name:</label>
+          <input type="text" name="name" required>
+        </div>
+        <div class="formControl">
+          <label for="spf">SPF:</label>
+          <input type="text" name="spf" required>
+        </div>
+        <fieldset>
+          <legend>Form:</legend>
+          <ul>
+            <li>
+              <input type="radio" id="lotion" name="form" value="lotion">
+              <label for="lotion">Lotion</label>
+            </li>
+            <li>
+              <input type="radio" id="gel" name="form" value="gel">
+              <label for="gel">Gel</label>
+            </li>
+            <li>
+              <input type="radio" id="stick" name="form" value="stick">
+              <label for="stick">Stick</label>
+            </li>
+            <li>
+              <input type="radio" id="spray" name="form" value="spray">
+              <label for="spray">Spray</label>
+            </li>
+          </ul>
+        </fieldset>
+        <fieldset>
+          <legend>Type:</legend>
+          <ul>
+            <li>
+              <input type="radio" id="chemical" name="form" value="chemical">
+              <label for="chemical">Chemical</label>
+            </li>
+            <li>
+              <input type="radio" id="physical" name="form" value="physical">
+              <label for="physical">Physical</label>
+            </li>
+          </ul>
+        </fieldset>
+        <fieldset>
+          <legend>Finish:</legend>
+          <ul>
+            <li>
+              <input type="radio" id="dewy" name="form" value="dewy">
+              <label for="dewy">Dewy</label>
+            </li>
+            <li>
+              <input type="radio" id="matte" name="form" value="matte">
+              <label for="matte">Matte</label>
+            </li>
+          </ul>
+        </fieldset>
+        <div class="formControl">
+          <label for="ounces">Ounces:</label>
+          <input type="text" name="Ounces">
+        </div>
+        <div class="formControl">
+          <label for="price">Price (USD):</label>
+          <input type="text" name="Price">
+        <div class="formControl">
+        <input type="submit">
+      </form>
+    </section>
+  </main>
+  <script type="text/javascript" src="/js/main.js"></script>
+</body>
+</html>
