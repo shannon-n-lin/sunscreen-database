@@ -1,28 +1,86 @@
+/* Box Model Hack */
+* {
+-webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+/* Clear fix hack */
+.clearfix:after {
+     content: ".";
+     display: block;
+     clear: both;
+     visibility: hidden;
+     line-height: 0;
+     height: 0;
+}
+
+.clear {
+     clear: both;
+}
+
 /******************************************
-/* CSS
+/* BASE STYLES
 /*******************************************/
 
-/* Box Model Hack */
-*{
-  box-sizing: border-box;
+html {
+  font-size: 16pt;
 }
 body {
-  margin-left: 3%;
-  margin-top: 2%;
+  font: 1rem Helvetica, sans-serif;
 }
-
+h1{
+  font-weight: 700;
+  font-size: 2rem;
+}
+h2{
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+.addSunscreenForm ul {
+  list-style-type: none;
+}
 
 /******************************************
 /* LAYOUT
 /*******************************************/
+
+header{
+  padding-top: 2rem;
+  padding-left: 2rem;
+}
+main {
+  padding: 2rem;
+  padding-top: 0;
+}
+main > section {
+  padding: 1rem 0;
+}
+.searchResults {
+  display: flex;
+  flex-direction: row;
+}
+.searchResults > * {
+  width: 100%;
+}
 img {
   display: block;
   margin: 0 auto;
-  max-height: 500px;
-  width: 500px;
+  max-width: 500px;
 }
-input {
-  width: 400px;
+.addSunscreenForm {
+  width: 600px;
+}
+.formControl, fieldset {
+  margin: 6px 0;
+}
+label {
+  display: inline-block;
+  width: 120px;
+  vertical-align: top;
+}
+input + label {
+  width: auto;
 }
 
 /******************************************
