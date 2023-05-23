@@ -2,9 +2,13 @@
 let host = 'http://localhost:9000'
 
 const likeButton = document.querySelectorAll('.addLike')
+const deleteButton = document.querySelectorAll('.delete')
 
 Array.from(likeButton).forEach((element) => {
   element.addEventListener('click', addLike)
+})
+Array.from(deleteButton).forEach((element) => {
+  element.addEventListener('click', deleteSunscreen)
 })
 
 // jquery autocomplete search of database
@@ -81,7 +85,7 @@ async function apiRequest(search) {
     }
     document.getElementById('likes').innerText = `Finish: ${data.likes}`
     document.getElementById('resultImg').src = data.imageURL
-  } catch (error) {
+  } catch(error) {
     console.log(error)
   }
 }
@@ -102,7 +106,26 @@ async function addLike() {
     const data = await response.json()
     console.log(data)
     location.reload()
-  } catch (error) {
+  } catch(error) {
+    console.log(error)
+  }
+}
+
+// delete a sunscreen
+async function deleteSunscreen() {
+  const name = this.parentNode.childNodes[3].innerText
+  try {
+    const response = await fetch('deleteSunscreen', {
+      method: 'delete',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        'name': name,
+      })
+    })
+    const data = await response.json()
+    console.log(data)
+    location.reload()
+  } catch(error) {
     console.log(error)
   }
 }

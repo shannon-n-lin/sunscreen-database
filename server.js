@@ -123,7 +123,7 @@ app.post('/addSunscreen', (req, res) => {
   .catch(error => console.error(error))
 })
 
-// 
+// add one like to a sunscreen
 app.put('/addLike', (req, res) => {
   collection.updateOne({name: req.body.name}, 
   {
@@ -132,6 +132,16 @@ app.put('/addLike', (req, res) => {
   .then(result => {
     console.log(`Added one like to ${req.body.name}`)
     res.json(`Added one like to ${req.body.name}`)
+  })
+  .catch(error => console.error(error))
+})
+
+// delete a sunscreen
+app.delete('/deleteSunscreen', (req, res) => {
+  collection.deleteOne({name: req.body.name})
+  .then(result => {
+    console.log(`${req.body.name} deleted`)
+    res.json(`${req.body.name} deleted`)
   })
   .catch(error => console.error(error))
 })
