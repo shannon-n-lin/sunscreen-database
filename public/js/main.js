@@ -1,6 +1,12 @@
 // let host = 'https://sunscreen-database.onrender.com'
 let host = 'http://localhost:9000'
 
+const likeButton = document.querySelectorAll('.addLike')
+
+Array.from(likeButton).forEach((element) => {
+  element.addEventListener('click', addLike)
+})
+
 // jquery autocomplete search of database
 $(document).ready(function () {
   $('#search').autocomplete({   
@@ -36,6 +42,7 @@ $(document).ready(function () {
           // result.ingredients.forEach(ing => {
           //   $('#ingredients').append(`<li>${ing}</li>`)
           // })
+          $('#likes').text(`Likes: ${result.likes}`)
           $('#resultImg').attr('src', result.imageURL)
           console.log(result)
         })
@@ -68,11 +75,33 @@ async function apiRequest(search) {
     document.getElementById('finish').innerText = `Finish: ${data.finish}`
     let price = Number(data.priceUSD) / Number(data.ounces)
     document.getElementById('price').innerText = `Price: $${price.toFixed(2)} / ounce`
-    document.getElementById('resultImg').src = data.imageURL
     document.getElementById('ingredientsLabel').innerText = 'Ingredients:'
     for (item of data.ingredients) {
       document.getElementById('ingredients').innerHTML += `<li>${item}</li>`
     }
+    document.getElementById('likes').innerText = `Finish: ${data.likes}`
+    document.getElementById('resultImg').src = data.imageURL
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// add one like to a sunscreen
+async function addLike() {
+  const name = this.parentNode.childNodes[3].innerText
+  const likes = Number(this.parentNode.childNodes[7].innerText)
+  try {
+    const response = await fetch('addLike', {
+      method: 'put',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        'name': name,
+        'likes': likes
+      })
+    })
+    const data = await response.json()
+    console.log(data)
+    location.reload()
   } catch (error) {
     console.log(error)
   }

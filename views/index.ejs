@@ -31,6 +31,7 @@
         <p id="price"></p>
         <p id='ingredientsLabel'></p>
         <p id="ingredients"></p>
+        <p id="likes"></p>
       </section>
       <section>
         <img src="" id="resultImg">
@@ -40,24 +41,31 @@
       <h2>All Sunscreens</h2>
       <ul class="sunscreenList">
       <% for (let i = 0; i < info.length; i++) {%>
-        <h3><%= `${info[i].brand} ${info[i].name}` %></h3>
         <li class="sunscreen"> 
-          <ul>
-            <li><%= `SPF: ${info[i].spf}` %></li>
-            <li><%= `Form: ${info[i].form}` %></li>
-            <li><%= `Type: ${info[i].type}` %></li>
-            <li><%= `Finish: ${info[i].finish}` %></li>
-            <li><%= `Price: $${(Number(info[i].priceUSD) / Number(info[i].ounces)).toFixed(2)} / ounce` %></li>
-            <li><%= `Ingredients: ${info[i].ingredients}` %>
-            <!-- iterating through ingredients if saved as array:
-              <ul>
-                <% for (let j = 0; j < info[i].ingredients.length; j++) {%>
-                  <li><%= info[i].ingredients[j] %></li>
-                <% } %>
-              </ul> -->
-            </li>
-          </ul>
-          <img src= <%= info[i].imageURL %> >
+          <section>
+            <h3><%= info[i].brand %></h3>
+            <h3><%= info[i].name %></h3>
+            <ul>
+              <li><%= `SPF: ${info[i].spf}` %></li>
+              <li><%= `Form: ${info[i].form}` %></li>
+              <li><%= `Type: ${info[i].type}` %></li>
+              <li><%= `Finish: ${info[i].finish}` %></li>
+              <li><%= `Price: $${(Number(info[i].priceUSD) / Number(info[i].ounces)).toFixed(2)} / ounce` %></li>
+              <li><%= `Ingredients: ${info[i].ingredients}` %>
+              <!-- iterating through ingredients if saved as array:
+                <ul>
+                  <% for (let j = 0; j < info[i].ingredients.length; j++) {%>
+                    <li><%= info[i].ingredients[j] %></li>
+                  <% } %>
+                </ul> -->
+              </li>
+            </ul>
+            <span><%= info[i].likes %></span><span> Likes</span>
+            <button class="addLike">Like</span>
+          </section>
+          <section>
+            <img src= <%= info[i].imageURL %> >
+          </section>
         </li>
       <% } %>
       <ul>

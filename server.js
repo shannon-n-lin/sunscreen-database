@@ -114,10 +114,24 @@ app.post('/addSunscreen', (req, res) => {
     priceUSD: req.body.priceUSD,
     ingredients: req.body.ingredients,
     imageURL: req.body.imageURL,
+    likes: 0,
   })
   .then(result => {
     console.log('Sunscreen added')
     res.redirect('/')
+  })
+  .catch(error => console.error(error))
+})
+
+// 
+app.put('/addLike', (req, res) => {
+  collection.updateOne({name: req.body.name}, 
+  {
+    $set: {likes: req.body.likes + 1}
+  })
+  .then(result => {
+    console.log(`Added one like to ${req.body.name}`)
+    res.json(`Added one like to ${req.body.name}`)
   })
   .catch(error => console.error(error))
 })
