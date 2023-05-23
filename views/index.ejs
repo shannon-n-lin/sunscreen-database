@@ -30,23 +30,34 @@
         <p id="finish"></p>
         <p id="price"></p>
         <p id='ingredientsLabel'></p>
-        <ul id="ingredients"></ul>
+        <p id="ingredients"></p>
       </section>
       <section>
-        <img src="">
+        <img src="" id="resultImg">
       </section>
     </section>
     <section class="allSunscreens">
       <h2>All Sunscreens</h2>
       <ul class="sunscreenList">
       <% for (let i = 0; i < info.length; i++) {%>
-        <li class="sunscreen">
-          <span><%= info[i].brand %></span>
-          <span><%= info[i].name %></span>
-          <span><%= info[i].spf %></span>
-          <span><%= info[i].form %></span>
-          <span><%= info[i].type %></span>
-          <span><%= info[i].finish %></span>
+        <h3><%= `${info[i].brand} ${info[i].name}` %></h3>
+        <li class="sunscreen"> 
+          <ul>
+            <li><%= `SPF: ${info[i].spf}` %></li>
+            <li><%= `Form: ${info[i].form}` %></li>
+            <li><%= `Type: ${info[i].type}` %></li>
+            <li><%= `Finish: ${info[i].finish}` %></li>
+            <li><%= `Price: $${(Number(info[i].priceUSD) / Number(info[i].ounces)).toFixed(2)} / ounce` %></li>
+            <li><%= `Ingredients: ${info[i].ingredients}` %>
+            <!-- iterating through ingredients if saved as array:
+              <ul>
+                <% for (let j = 0; j < info[i].ingredients.length; j++) {%>
+                  <li><%= info[i].ingredients[j] %></li>
+                <% } %>
+              </ul> -->
+            </li>
+          </ul>
+          <img src= <%= info[i].imageURL %> >
         </li>
       <% } %>
       <ul>
@@ -56,33 +67,33 @@
       <form action="/addSunscreen" method="POST">
         <div class="formControl">
           <label for="brand">Brand:</label>
-          <input type="text" name="brand" required>
+          <input type="text" id="brand" name="brand" required>
         </div>
         <div class="formControl">
           <label for="name">Name:</label>
-          <input type="text" name="name" required>
+          <input type="text" id="name" name="name" required>
         </div>
         <div class="formControl">
           <label for="spf">SPF:</label>
-          <input type="text" name="spf" required>
+          <input type="text" id="spf" name="spf" required>
         </div>
         <fieldset>
           <legend>Form:</legend>
           <ul>
             <li>
-              <input type="radio" id="lotion" name="form" value="lotion">
+              <input type="radio" id="form_lotion" name="form" value="lotion">
               <label for="lotion">Lotion</label>
             </li>
             <li>
-              <input type="radio" id="gel" name="form" value="gel">
+              <input type="radio" id="form_gel" name="form" value="gel">
               <label for="gel">Gel</label>
             </li>
             <li>
-              <input type="radio" id="stick" name="form" value="stick">
+              <input type="radio" id="form_stick" name="form" value="stick">
               <label for="stick">Stick</label>
             </li>
             <li>
-              <input type="radio" id="spray" name="form" value="spray">
+              <input type="radio" id="form_spray" name="form" value="spray">
               <label for="spray">Spray</label>
             </li>
           </ul>
@@ -91,11 +102,11 @@
           <legend>Type:</legend>
           <ul>
             <li>
-              <input type="radio" id="chemical" name="form" value="chemical">
+              <input type="radio" id="type_chemical" name="type" value="chemical">
               <label for="chemical">Chemical</label>
             </li>
             <li>
-              <input type="radio" id="physical" name="form" value="physical">
+              <input type="radio" id="type_physical" name="type" value="physical">
               <label for="physical">Physical</label>
             </li>
           </ul>
@@ -104,22 +115,30 @@
           <legend>Finish:</legend>
           <ul>
             <li>
-              <input type="radio" id="dewy" name="form" value="dewy">
+              <input type="radio" id="finish_dewy" name="finish" value="dewy">
               <label for="dewy">Dewy</label>
             </li>
             <li>
-              <input type="radio" id="matte" name="form" value="matte">
+              <input type="radio" id="finish_matte" name="finish" value="matte">
               <label for="matte">Matte</label>
             </li>
           </ul>
         </fieldset>
         <div class="formControl">
           <label for="ounces">Ounces:</label>
-          <input type="text" name="Ounces">
+          <input type="text" id="ounces" name="ounces" >
         </div>
         <div class="formControl">
           <label for="price">Price (USD):</label>
-          <input type="text" name="Price">
+          <input type="text" id="priceUSD" name="priceUSD" >
+        <div class="formControl">
+        <div class="formControl">
+          <label for="ingredients">Ingredients:</label>
+          <input type="text" id="ingredients" name="ingredients" >
+        <div class="formControl">
+        <div class="formControl">
+          <label for="imageURL">Image Link:</label>
+          <input type="url" id="imageURL" name="imageURL" >
         <div class="formControl">
         <input type="submit">
       </form>

@@ -56,9 +56,12 @@ main {
 main > section {
   padding: 1rem 0;
 }
-.searchResults {
+.searchResults, .sunscreen {
   display: flex;
   flex-direction: row;
+}
+.sunscreen {
+  margin: 20px 0;
 }
 .searchResults > * {
   width: 100%;
@@ -66,7 +69,7 @@ main > section {
 img {
   display: block;
   margin: 0 auto;
-  max-width: 500px;
+  max-height: 500px;
 }
 .addSunscreenForm {
   width: 600px;

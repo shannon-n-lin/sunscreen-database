@@ -29,12 +29,14 @@ $(document).ready(function () {
           $('#type').text(`Type: ${result.type}`)
           $('#finish').text(`Finish: ${result.finish}`)
           $('#price').text(`Price: $${(Number(result.priceUSD) / Number(result.ounces)).toFixed(2)} / ounce`)
-          $('#ingredientsLabel').text('Ingredients:')
-          $('#ingredients').empty()
-          result.ingredients.forEach(ing => {
-            $('#ingredients').append(`<li>${ing}</li>`)
-          })
-          $('img').attr('src', result.imageURL)
+          $('#ingredients').text(`Ingredients: ${result.ingredients}`)
+          // // if ingredients are saved as array:
+          // $('#ingredientsLabel').text('Ingredients:') 
+          // $('#ingredients').empty()
+          // result.ingredients.forEach(ing => {
+          //   $('#ingredients').append(`<li>${ing}</li>`)
+          // })
+          $('#resultImg').attr('src', result.imageURL)
           console.log(result)
         })
     }
@@ -66,7 +68,7 @@ async function apiRequest(search) {
     document.getElementById('finish').innerText = `Finish: ${data.finish}`
     let price = Number(data.priceUSD) / Number(data.ounces)
     document.getElementById('price').innerText = `Price: $${price.toFixed(2)} / ounce`
-    document.querySelector('img').src = data.imageURL
+    document.getElementById('resultImg').src = data.imageURL
     document.getElementById('ingredientsLabel').innerText = 'Ingredients:'
     for (item of data.ingredients) {
       document.getElementById('ingredients').innerHTML += `<li>${item}</li>`
