@@ -101,6 +101,27 @@ app.get('/api/:search', (req, res) => {
   .catch(error => console.error(error))
 })
 
+// add sunscreen to database
+app.post('/addSunscreen', (req, res) => {
+  collection.insertOne({
+    brand: req.body.brand,
+    name: req.body.name,
+    spf: req.body.spf,
+    form: req.body.form,
+    type: req.body.type,
+    finish: req.body.finish,
+    ounces: req.body.ounces,
+    priceUSD: req.body.priceUSD,
+    ingredients: req.body.ingredients,
+    imageURL: req.body.imageURL,
+  })
+  .then(result => {
+    console.log('Sunscreen added')
+    res.redirect('/')
+  })
+  .catch(error => console.error(error))
+})
+
 // connect to port in hosting environment or localhost
 app.listen(process.env.PORT || PORT, () => {
   console.log(`The server is running.`)
